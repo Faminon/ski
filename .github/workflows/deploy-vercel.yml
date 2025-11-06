@@ -1,4 +1,4 @@
-name: Deploy to Vercel
+name: deploy
 
 on:
   push:
@@ -6,10 +6,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  vercel-deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,13 +24,24 @@ jobs:
         working-directory: ./apps/web
         run: npm ci
 
-      # Déploie via l'action officielle Vercel
-      - name: Vercel Deploy
-        uses: vercel/actions@v2
-        with:
-          working-directory: ./apps/web
-          prod: true
+      # --- Déploiement via la CLI Vercel ---
+      - name: Pull env from Vercel
+        working-directory: ./apps/web
+        run: npx vercel pull --yes --environment=production --token CvLOdmSg2xAuZft2E4ULUWMQ
         env:
-          VERCEL_TOKEN: CvLOdmSg2xAuZft2E4ULUWMQ
+          VERCEL_ORG_ID: team_toms-projects-022d8320
+          VERCEL_PROJECT_ID: prj_PyfwcVHTSgaGbqwroS5KB29QgIPr
+
+      - name: Build
+        working-directory: ./apps/web
+        run: npx vercel build --token CvLOdmSg2xAuZft2E4ULUWMQ
+        env:
+          VERCEL_ORG_ID: team_toms-projects-022d8320
+          VERCEL_PROJECT_ID: prj_PyfwcVHTSgaGbqwroS5KB29QgIPr
+
+      - name: Deploy
+        working-directory: ./apps/web
+        run: npx vercel deploy --prebuilt --prod --token CvLOdmSg2xAuZft2E4ULUWMQ
+        env:
           VERCEL_ORG_ID: team_toms-projects-022d8320
           VERCEL_PROJECT_ID: prj_PyfwcVHTSgaGbqwroS5KB29QgIPr
