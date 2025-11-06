@@ -1,0 +1,35 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install deps
+        working-directory: ./apps/web
+        run: npm ci
+
+      # Déploie via l'action officielle Vercel
+      - name: Vercel Deploy
+        uses: vercel/actions@v2
+        with:
+          working-directory: ./apps/web
+          prod: true
+        env:
+          VERCEL_TOKEN: CvLOdmSg2xAuZft2E4ULUWMQ
+          VERCEL_ORG_ID: team_toms-projects-022d8320
+          VERCEL_PROJECT_ID: prj_PyfwcVHTSgaGbqwroS5KB29QgIPr
