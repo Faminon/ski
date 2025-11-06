@@ -1,24 +1,7 @@
-import SearchBar from "@/components/SearchBar";
+// apps/web/app/(public)/page.tsx
+import HomeContent from "./components/HomeContent";
 
 export default function HomePage() {
-  return (
-    <main
-      style={{
-        minHeight: "60vh",
-        display: "grid",
-        placeItems: "center",
-      }}
-    >
-      <div
-        style={{
-          width: "100%",
-          maxWidth: 760,
-          margin: "0 auto",
-          padding: 16,
-        }}
-      >
-        <SearchBar />
-      </div>
-    </main>
-  );
+  return <HomeContent />;
 }
+

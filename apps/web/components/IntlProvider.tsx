@@ -1,50 +1,40 @@
 "use client";
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { ALL_LANGS, Lang, defaultLang, dictionaries } from "@/lib/i18n";
+
+import { createContext, useContext, useEffect, useState } from "react";
+import { dictionaries, type Lang } from "@/lib/i18n";
 
 type Ctx = {
   lang: Lang;
   setLang: (l: Lang) => void;
-  t: (key: string) => string;
+  t: (k: string) => string;
 };
 
-const I18nContext = createContext<Ctx | null>(null);
+const I18nContext = createContext<Ctx>({
+  lang: "fr",
+  setLang: () => {},
+  t: (k) => k,
+});
 
-export function IntlProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = useState<Lang>(defaultLang);
+export const IntlProvider = ({ children }: { children: React.ReactNode }) => {
+  const [lang, setLang] = useState<Lang>("fr");
 
-  // init from localStorage / navigator
   useEffect(() => {
-    const saved = (typeof window !== "undefined" && (localStorage.getItem("lang") as Lang | null)) || null;
-    if (saved && ALL_LANGS.includes(saved)) {
-      setLangState(saved);
-      document.documentElement.lang = saved;
-    } else {
-      const fromNav = (navigator.language || defaultLang).slice(0, 2) as Lang;
-      const fallback: Lang = (ALL_LANGS.includes(fromNav) ? fromNav : defaultLang);
-      setLangState(fallback);
-      document.documentElement.lang = fallback;
-    }
+    const saved = (localStorage.getItem("lang") as Lang | null) || null;
+    const browser = (navigator.language || "fr").slice(0, 2) as Lang;
+    const initial = saved && dictionaries[saved] ? saved : dictionaries[browser] ? browser : "fr";
+    setLang(initial);
+    document.documentElement.lang = initial;
   }, []);
 
-  function setLang(l: Lang) {
-    setLangState(l);
-    document.documentElement.lang = l;
-    try { localStorage.setItem("lang", l); } catch {}
-  }
-
-  const t = useMemo(() => {
-    const dict = dictionaries[lang] || dictionaries[defaultLang];
-    return (key: string) => dict[key] ?? key;
+  useEffect(() => {
+    localStorage.setItem("lang", lang);
+    document.documentElement.lang = lang;
   }, [lang]);
 
-  const value = useMemo(() => ({ lang, setLang, t }), [lang]);
+  const t = (k: string) => dictionaries[lang]?.[k] ?? k;
 
-  return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
-}
+  return <I18nContext.Provider value={{ lang, setLang, t }}>{children}</I18nContext.Provider>;
+};
 
-export function useI18n() {
-  const ctx = useContext(I18nContext);
-  if (!ctx) throw new Error("useI18n must be used inside <IntlProvider>");
-  return ctx;
-}
+export const useI18n = () => useContext(I18nContext);
+export type { Lang };

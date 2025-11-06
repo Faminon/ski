@@ -13,7 +13,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <IntlProvider>
           <Navbar />
-          <main style={{ paddingTop: 80 }}>{children}</main>
+          {/* pas de padding-top ici pour que l'image parte du haut */}
+          {children}
         </IntlProvider>
       </body>
     </html>

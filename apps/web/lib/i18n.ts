@@ -15,6 +15,9 @@ export const dictionaries: Record<Lang, Dict> = {
     search_departure: "Départ",
     search_guests: "Personnes",
     search_cta: "Rechercher",
+    nav_apartments: "Appartements",
+    nav_chalets: "Chalets",
+    home_title: "Trouvez votre hébergement au ski",
     // Auth shared
     auth_logo: "SB",
     auth_or: "ou",
