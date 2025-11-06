@@ -1,0 +1,58 @@
+[
+  {
+    "id": "1",
+    "title": "Studio cosy au pied des pistes",
+    "station": "Val Thorens",
+    "description": "Studio r\u00e9nov\u00e9, casier \u00e0 skis, vue montagne.",
+    "capacity": 4,
+    "pricePerNightCents": 9000,
+    "imageUrl": "https://images.unsplash.com/photo-1601582585289-c7af3c4b1c01?q=80&w=1200&auto=format&fit=crop",
+    "amenities": [
+      "Casier \u00e0 skis",
+      "Wi\u2011Fi",
+      "Parking"
+    ]
+  },
+  {
+    "id": "2",
+    "title": "2 pi\u00e8ces avec balcon ensoleill\u00e9",
+    "station": "Les Arcs",
+    "description": "Proche navette et commerces, balcon plein sud.",
+    "capacity": 4,
+    "pricePerNightCents": 12000,
+    "imageUrl": "https://images.unsplash.com/photo-1593359677879-6a9b20e1b44b?q=80&w=1200&auto=format&fit=crop",
+    "amenities": [
+      "Balcon",
+      "Cuisine \u00e9quip\u00e9e",
+      "Navette"
+    ]
+  },
+  {
+    "id": "3",
+    "title": "Chalet familial 6 pers.",
+    "station": "La Plagne",
+    "description": "Grand salon, chemin\u00e9e, parking couvert.",
+    "capacity": 6,
+    "pricePerNightCents": 18000,
+    "imageUrl": "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop",
+    "amenities": [
+      "Chemin\u00e9e",
+      "Parking",
+      "Machine \u00e0 laver"
+    ]
+  },
+  {
+    "id": "4",
+    "title": "Duplex au pied des remont\u00e9es",
+    "station": "Tignes",
+    "description": "Acc\u00e8s direct t\u00e9l\u00e9cabine, vue glacier.",
+    "capacity": 5,
+    "pricePerNightCents": 15000,
+    "imageUrl": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1200&auto=format&fit=crop",
+    "amenities": [
+      "Vue montagne",
+      "Ascenseur",
+      "Wi\u2011Fi"
+    ]
+  }
+]

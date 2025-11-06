@@ -1,0 +1,94 @@
+# --- Node / Monorepo ---
+node_modules/
+**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+.yarn/
+.pnp.*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# --- Next.js / Web build ---
+.next/
+.next.cache/
+out/
+dist/
+.vercel/
+.turbo/
+**/.next/
+**/dist/
+
+# --- TypeScript ---
+*.tsbuildinfo
+
+# --- Env & secrets (garde .example) ---
+.env
+.env.*.local
+.env.local
+**/.env
+**/.env.*.local
+!*.example
+!.env.example
+
+# --- Tests / Coverage ---
+coverage/
+.junit/
+reports/
+*.lcov
+
+# --- Logs ---
+logs/
+*.log
+*.log.*
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- OS / Editors ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.vscode-test/
+*.swp
+*.swo
+
+# --- Images/thumbnails caches ---
+*.png.cache
+*.jpg.cache
+
+# --- Storybook (si utilisé) ---
+.storybook-out/
+storybook-static/
+
+# --- Prisma (si utilisé) ---
+prisma/*.db
+prisma/*.db-journal
+
+# --- Docker (si utilisé) ---
+docker-data/
+*.pid
+
+# --- Optional: React Native (si tu ajoutes l’app plus tard) ---
+android/.gradle/
+android/.idea/
+android/local.properties
+android/app/build/
+android/build/
+ios/Pods/
+ios/build/
+*.keystore
+*.jks
+
+# --- Misc ---
+*.tgz
+*.tar
+tmp/
+temp/
+.cache/
+
