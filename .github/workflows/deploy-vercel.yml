@@ -1,4 +1,4 @@
-name: deploy
+name: vercel-deploy
 
 on:
   push:
@@ -12,34 +12,38 @@ jobs:
       contents: read
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
+          cache: "npm"
 
-      - name: Install deps
+      # Installation des dépendances (apps/web)
+      - name: Install dependencies
         working-directory: ./apps/web
-        run: npm ci
+        run: npm install
 
-      # --- Déploiement via la CLI Vercel ---
-      - name: Pull env from Vercel
+      # Synchronisation avec ton projet Vercel
+      - name: Pull environment variables from Vercel
         working-directory: ./apps/web
         run: npx vercel pull --yes --environment=production --token CvLOdmSg2xAuZft2E4ULUWMQ
         env:
           VERCEL_ORG_ID: team_toms-projects-022d8320
           VERCEL_PROJECT_ID: prj_PyfwcVHTSgaGbqwroS5KB29QgIPr
 
-      - name: Build
+      # Build du site (préparation à la mise en ligne)
+      - name: Build project
         working-directory: ./apps/web
         run: npx vercel build --token CvLOdmSg2xAuZft2E4ULUWMQ
         env:
           VERCEL_ORG_ID: team_toms-projects-022d8320
           VERCEL_PROJECT_ID: prj_PyfwcVHTSgaGbqwroS5KB29QgIPr
 
-      - name: Deploy
+      # Déploiement sur Vercel
+      - name: Deploy to Vercel
         working-directory: ./apps/web
         run: npx vercel deploy --prebuilt --prod --token CvLOdmSg2xAuZft2E4ULUWMQ
         env:
