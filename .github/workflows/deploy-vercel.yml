@@ -19,14 +19,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: "npm"
 
-      # Installation des dépendances (apps/web)
       - name: Install dependencies
         working-directory: ./apps/web
         run: npm install
 
-      # Synchronisation avec ton projet Vercel
       - name: Pull environment variables from Vercel
         working-directory: ./apps/web
         run: npx vercel pull --yes --environment=production --token CvLOdmSg2xAuZft2E4ULUWMQ
@@ -34,7 +31,6 @@ jobs:
           VERCEL_ORG_ID: team_toms-projects-022d8320
           VERCEL_PROJECT_ID: prj_PyfwcVHTSgaGbqwroS5KB29QgIPr
 
-      # Build du site (préparation à la mise en ligne)
       - name: Build project
         working-directory: ./apps/web
         run: npx vercel build --token CvLOdmSg2xAuZft2E4ULUWMQ
@@ -42,7 +38,6 @@ jobs:
           VERCEL_ORG_ID: team_toms-projects-022d8320
           VERCEL_PROJECT_ID: prj_PyfwcVHTSgaGbqwroS5KB29QgIPr
 
-      # Déploiement sur Vercel
       - name: Deploy to Vercel
         working-directory: ./apps/web
         run: npx vercel deploy --prebuilt --prod --token CvLOdmSg2xAuZft2E4ULUWMQ
