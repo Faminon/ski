@@ -53,8 +53,8 @@ export default function Footer({ compact = false }: FooterProps) {
                 contact@skibnb.fr
               </a>
             </li>
-            <li>📞 +33 6 12 34 56 78</li>
-            <li>📍 15 Rue des Neiges, 73000 Chambéry, France</li>
+            <li>📞 +33 6 00 00 00 00</li>
+            <li>📍 Mont Blanc, 74400 Chamonix, France</li>
           </ul>
         </div>
 

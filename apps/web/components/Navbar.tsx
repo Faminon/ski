@@ -4,8 +4,9 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useI18n, type Lang } from "@/components/IntlProvider";
+import { useTheme } from "@/components/ThemeProvider";
 
-/* Drapeaux inline */
+/* Drapeaux SVG */
 function Flag({ code, size = 14 }: { code: Lang; size?: number }) {
   const h = Math.round((size / 3) * 2);
   const common = { width: size, height: h, style: { display: "block", borderRadius: 2 } } as any;
@@ -16,7 +17,6 @@ function Flag({ code, size = 14 }: { code: Lang; size?: number }) {
     case "it": return (<svg {...common} viewBox="0 0 3 2"><rect width="3" height="2" fill="#CE2B37"/><rect width="2" height="2" fill="#fff"/><rect width="1" height="2" fill="#009246"/></svg>);
   }
 }
-
 const LANGS: { code: Lang; label: string }[] = [
   { code: "fr", label: "FR" },
   { code: "en", label: "EN" },
@@ -27,8 +27,10 @@ const LANGS: { code: Lang; label: string }[] = [
 export default function Navbar() {
   const pathname = usePathname();
   const { lang, setLang, t } = useI18n();
+  const { isLuxe } = useTheme();
   const [user] = useState<{ name: string; avatar?: string } | null>(null);
 
+  // menu langues
   const [openLang, setOpenLang] = useState(false);
   const langRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -37,10 +39,26 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", onClick);
   }, []);
 
-  const isActive = (href: string) => {
-    if (href === "/") return pathname === "/" || pathname?.startsWith("/appartements");
-    return pathname?.startsWith(href);
-  };
+  // 🎨 Palette selon thème
+  const palette = isLuxe
+    ? {
+        navbarBg: "rgba(0,0,0,0.45)",
+        navbarBorder: "rgba(212,175,55,0.35)", // or doux
+        textMain: "#f7f4ea",
+        textMuted: "#e9dfc2",
+        segBorder: "rgba(212,175,55,0.35)",
+        langBtnBg: "rgba(0,0,0,0.55)",
+        langBtnBorder: "rgba(212,175,55,0.35)",
+      }
+    : {
+        navbarBg: "rgba(255,255,255,0.35)",
+        navbarBorder: "rgba(0,0,0,0.1)",
+        textMain: "#0f1622",
+        textMuted: "#576277",
+        segBorder: "rgba(0,0,0,0.1)",
+        langBtnBg: "rgba(255,255,255,0.8)",
+        langBtnBorder: "rgba(0,0,0,0.12)",
+      };
 
   return (
     <header
@@ -48,37 +66,38 @@ export default function Navbar() {
         position: "fixed",
         inset: "0 0 auto 0",
         zIndex: 50,
-        /* 🎯 barre blanche translucide */
-        background: "rgba(255,255,255,0.35)",
+        background: palette.navbarBg,
         backdropFilter: "blur(8px)",
-        borderBottom: "1px solid rgba(255,255,255,0.5)",
+        borderBottom: `1px solid ${palette.navbarBorder}`,
+        width: "100%",
       }}
     >
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "1fr auto 1fr",
+          display: "flex",
           alignItems: "center",
-          gap: 16,
           padding: "12px 24px",
+          width: "100%",
         }}
       >
-        {/* Logo (couleur sombre pour contraster sur blanc) */}
-        <div style={{ justifySelf: "start" }}>
-          <Link href="/" style={{ fontSize: 20, fontWeight: 900, color: "#0f1622", textDecoration: "none" }}>
-            {t("brand")}
-          </Link>
-        </div>
+        {/* Logo (gauche) */}
+        <Link
+          href="/"
+          style={{ fontSize: 20, fontWeight: 900, color: palette.textMain, textDecoration: "none" }}
+        >
+          SkiBnB
+        </Link>
 
-        {/* Segmented control centré */}
+        {/* Segmented control */}
+        {/*
         <div style={{ justifySelf: "center" }}>
           <div
             role="tablist"
             aria-label="Type d'hébergement"
             style={{
               display: "inline-flex",
-              background: "rgba(255,255,255,0.6)",
-              border: "1px solid rgba(0,0,0,0.1)",
+              background: palette.segBg,
+              border: `1px solid ${palette.segBorder}`,
               borderRadius: 999,
               overflow: "hidden",
             }}
@@ -92,13 +111,13 @@ export default function Navbar() {
                 textDecoration: "none",
                 fontWeight: 700,
                 fontSize: 14,
-                color: isActive("/") ? "#fff" : "#0f1622",
-                background: isActive("/") ? "#0f1622" : "transparent",
-                borderRight: "1px solid rgba(0,0,0,0.08)",
-                transition: "background-color 0.25s ease, color 0.25s ease", // ✨ transition fluide
+                color: isActive("/") ? palette.tabActiveText : palette.tabInactiveText,
+                background: isActive("/") ? palette.tabActiveBg : "transparent",
+                borderRight: `1px solid ${palette.segBorder}`,
+                transition: "background-color .25s ease, color .25s ease",
               }}
             >
-              {t("nav_apartments")}
+              {t("nav_apartments") ?? "Appartements"}
             </Link>
 
             <Link
@@ -110,18 +129,22 @@ export default function Navbar() {
                 textDecoration: "none",
                 fontWeight: 700,
                 fontSize: 14,
-                color: isActive("/chalets") ? "#fff" : "#0f1622",
-                background: isActive("/chalets") ? "#0f1622" : "transparent",
-                transition: "background-color 0.25s ease, color 0.25s ease", // ✨ transition fluide
+                color: isActive("/chalets") ? palette.tabActiveText : palette.tabInactiveText,
+                background: isActive("/chalets") ? palette.tabActiveBg : "transparent",
+                transition: "background-color .25s ease, color .25s ease",
               }}
             >
-              {t("nav_chalets")}
+              {t("nav_chalets") ?? "Chalets"}
             </Link>
           </div>
         </div>
+        */}
 
-        {/* Langues + Connexion */}
-        <div style={{ justifySelf: "end", display: "flex", alignItems: "center", gap: 10 }}>
+        {/* Spacer flexible pour pousser le bloc de droite */}
+        <div style={{ flex: 1 }} />
+
+        {/* Langue + Connexion (droite) */}
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginLeft: "auto" }}>
           <div ref={langRef} style={{ position: "relative" }}>
             <button
               onClick={() => setOpenLang((v) => !v)}
@@ -132,9 +155,9 @@ export default function Navbar() {
                 width: 72,
                 padding: "6px 10px",
                 borderRadius: 999,
-                border: "1px solid rgba(0,0,0,0.12)",
-                background: "rgba(255,255,255,0.8)",
-                color: "#0f1622",
+                border: `1px solid ${palette.langBtnBorder}`,
+                background: palette.langBtnBg,
+                color: palette.textMain,
                 cursor: "pointer",
                 fontWeight: 700,
                 fontSize: 13,
@@ -153,13 +176,13 @@ export default function Navbar() {
                   right: 0,
                   top: "calc(100% + 6px)",
                   minWidth: 110,
-                  background: "rgba(255,255,255,0.95)",
-                  border: "1px solid rgba(0,0,0,0.12)",
+                  background: isLuxe ? "rgba(0,0,0,0.9)" : "rgba(255,255,255,0.95)",
+                  border: `1px solid ${palette.langBtnBorder}`,
                   borderRadius: 10,
                   listStyle: "none",
                   padding: 4,
                   margin: 0,
-                  boxShadow: "0 8px 20px rgba(0,0,0,.1)",
+                  boxShadow: isLuxe ? "0 10px 30px rgba(0,0,0,.5)" : "0 8px 20px rgba(0,0,0,.1)",
                   zIndex: 60,
                 }}
               >
@@ -174,9 +197,9 @@ export default function Navbar() {
                         justifyContent: "center",
                         gap: 6,
                         padding: "6px 0",
-                        background: l.code === lang ? "rgba(155,93,229,0.15)" : "transparent",
+                        background: "transparent",
                         border: 0,
-                        color: "#0f1622",
+                        color: palette.textMain,
                         borderRadius: 6,
                         cursor: "pointer",
                         fontSize: 13,
@@ -200,9 +223,9 @@ export default function Navbar() {
                 height: 38,
                 borderRadius: "50%",
                 overflow: "hidden",
-                border: "2px solid rgba(0,0,0,0.12)",
-                background: "rgba(255,255,255,0.9)",
-                color: "#0f1622",
+                border: `2px solid ${palette.segBorder}`,
+                background: isLuxe ? "#000" : "#ffffff",
+                color: palette.textMain,
                 fontWeight: 800,
                 display: "grid",
                 placeItems: "center",
@@ -222,13 +245,11 @@ export default function Navbar() {
                 display: "inline-grid",
                 placeItems: "center",
                 textDecoration: "none",
-                color: "#0f1622",
-                background: "#ffffff",
-                border: "1px solid rgba(0,0,0,0.12)",
+                color: isLuxe ? "#000" : "#0f1622",
+                background: isLuxe ? "#d4af37" : "#ffffff",
+                border: `1px solid ${palette.segBorder}`,
                 transition: ".2s",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "#9b5de5")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "#ffffff")}
             >
               {t("nav_login")}
             </Link>

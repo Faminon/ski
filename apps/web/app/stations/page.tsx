@@ -9,23 +9,51 @@ const STATIONS = [
   {
     slug: "val-thorens",
     name: "Val Thorens",
-    image: "/images/stations/val-thorens.jpg",
+    image: "/images/stations/val-thorens-hero.jpg",
     description:
       "La plus haute station d’Europe, intégrée au domaine des 3 Vallées.",
   },
   {
     slug: "tignes",
     name: "Tignes",
-    image: "/images/stations/tignes.jpg",
+    image: "/images/stations/tignes-hero.jpg",
     description:
       "Reliée à Val d’Isère, idéale pour le ski de performance et la glisse.",
   },
   {
     slug: "vars",
     name: "Vars",
-    image: "/images/stations/vars.jpg",
+    image: "/images/stations/vars-hero.jpg",
     description:
       "Station ensoleillée des Hautes-Alpes, cadre authentique et vivant.",
+  },
+  {
+    slug: "val-d'isere",
+    name: "Val d'Isère",
+    image: "/images/stations/val-d'isère-hero.jpg",
+    description:
+      "Reliée à Tignes, idéale pour le ski de performance et la glisse.",
+  },
+  {
+    slug: "avoriaz",
+    name: "Avoriaz",
+    image: "/images/stations/avoriaz-hero.jpg",
+    description:
+      "Perchée à 1800 m au cœur des Portes du Soleil, architecture bois et ski-aux-pieds.",
+  },
+  {
+    slug: "meribel",
+    name: "Méribel",
+    image: "/images/stations/meribel-hero.jpg",
+    description:
+      "Au cœur des 3 Vallées : élégance savoyarde et accès au plus grand domaine skiable.",
+  },
+  {
+    slug: "courchevel",
+    name: "Courchevel",
+    image: "/images/stations/courchevel-hero.jpg",
+    description:
+      "Référence luxe des 3 Vallées, villages reliés skis aux pieds, enneigement soigné.",
   },
 ];
 
@@ -88,7 +116,7 @@ export default function StationsPage() {
             {filtered.map((s) => (
               <Link
                 key={s.slug}
-                href={`/listing?station=${s.slug}`}
+                href= {`/stations/${s.slug}`}
                 className="station-card"
               >
                 <div className="station-card__image">

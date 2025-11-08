@@ -4,28 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function StationsSection() {
-  const stations = [
-    {
-      name: "Val Thorens",
-      image: "/images/stations/val-thorens.jpg",
-      description: "La plus haute station d’Europe, au cœur des 3 Vallées.",
-      link: "/listing?station=val-thorens",
-    },
-    {
-      name: "Tignes",
-      image: "/images/stations/tignes.jpg",
-      description:
-        "Immense domaine relié à Val d’Isère, parfait pour le ski sportif.",
-      link: "/listing?station=tignes",
-    },
-    {
-      name: "Vars",
-      image: "/images/stations/vars.jpg",
-      description:
-        "Dans les Hautes-Alpes, cadre authentique, ensoleillé et dynamique.",
-      link: "/listing?station=vars",
-    },
-  ];
+    const stations = [
+    { name: "Val Thorens", image: "/images/stations/val-thorens.jpg", link: "/stations/val-thorens" },
+    { name: "Tignes", image: "/images/stations/tignes.jpg", link: "/stations/tignes" },
+    { name: "Courchevel", image: "/images/stations/courchevel.png", link: "/stations/courchevel" },
+    { name: "Val d'Isère", image: "/images/stations/val-d'isère.jpg", link: "/stations/val-d'isère" },
+    ];
+
+
 
   return (
     <section style={{ background: "#fff", padding: "64px 24px" }}>
@@ -124,9 +110,6 @@ export default function StationsSection() {
                 <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
                   <span style={{ color: "#0f1622", fontWeight: 800, fontSize: 16 }}>
                     {station.name}
-                  </span>
-                  <span style={{ color: "#576277", fontSize: 13 }}>
-                    {station.description}
                   </span>
                 </div>
               </article>

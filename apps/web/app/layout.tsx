@@ -1,10 +1,11 @@
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { IntlProvider } from "@/components/IntlProvider";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const metadata = {
   title: "SkiBnB",
-  description: "Location d'appartements de ski",
+  description: "Location d'appartements et chalets",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -12,9 +13,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fr">
       <body>
         <IntlProvider>
-          <Navbar />
-          {/* pas de padding-top ici pour que l'image parte du haut */}
-          {children}
+          <ThemeProvider>
+            <Navbar />
+            {children}
+          </ThemeProvider>
         </IntlProvider>
       </body>
     </html>
