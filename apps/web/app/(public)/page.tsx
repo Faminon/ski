@@ -1,7 +1,13 @@
-// apps/web/app/(public)/page.tsx
 import HomeContent from "./components/HomeContent";
+import StationsSection from "@/components/StationsSection";
+import Footer from "@/components/Footer";
 
 export default function HomePage() {
-  return <HomeContent />;
+  return (
+    <>
+      <HomeContent />
+      <StationsSection />
+      <Footer />
+    </>
+  );
 }
-

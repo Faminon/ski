@@ -4,7 +4,14 @@ import { useRouter } from "next/navigation";
 import DateRangePicker from "./DateRangePicker";
 import { useI18n } from "@/components/IntlProvider";
 
-const STATIONS = ["Val Thorens","Méribel","Courchevel","Tignes","Val d'Isère"] as const;
+const STATIONS = [
+  "Val Thorens",
+  "Méribel",
+  "Courchevel",
+  "Tignes",
+  "Val d'Isère",
+  "Vars",
+] as const;
 
 function normalize(s: string) {
   return s.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
