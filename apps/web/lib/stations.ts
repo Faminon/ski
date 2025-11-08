@@ -149,8 +149,8 @@ export const STATIONS: Station[] = [
     openingEnd: "2026-04-18",
     nearestAirports: ["Chambéry (CMF)", "Lyon (LYS)", "Genève (GVA)"],
     officialSite: "https://www.meribel.net/",
-    planStationImage: "/images/stations/meribel-plan-station.jpg",
-    planDomaineImage: "/images/stations/meribel-plan-domaine.jpg",
+    planStationImage: "/images/stations/meribel-plan-station.avif",
+    planDomaineImage: "/images/stations/val-thorens-plan-domaine.jpg",
   },
   {
     slug: "courchevel",
@@ -170,8 +170,8 @@ export const STATIONS: Station[] = [
     openingEnd: "2026-04-18",
     nearestAirports: ["Chambéry (CMF)", "Lyon (LYS)", "Genève (GVA)"],
     officialSite: "https://www.courchevel.com/",
-    planStationImage: "/images/stations/courchevel-plan-station.jpg",
-    planDomaineImage: "/images/stations/courchevel-plan-domaine.jpg",
+    planStationImage: "/images/stations/courchevel-plan-station.avif",
+    planDomaineImage: "/images/stations/val-thorens-plan-domaine.jpg",
   },
 ];
 
